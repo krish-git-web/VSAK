@@ -13,6 +13,11 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
+    /* Enables smooth scrolling across the page */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: #ffffff;
       color: #333333;
@@ -74,7 +79,7 @@
     }
 
     nav a {
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 600;
       color: #4a4a4a;
       transition: color 0.2s;
@@ -97,21 +102,6 @@
 
     .contact-btn:hover {
       background-color: #002266;
-    }
-
-    /* Secondary Navigation Bar */
-    .sub-header {
-      background-color: #f8f9fa;
-      border-bottom: 1px solid #e0e0e0;
-      padding: 10px 40px;
-      display: flex;
-      gap: 25px;
-      font-size: 13px;
-      color: #666666;
-    }
-
-    .sub-header a:hover {
-      color: #00338d;
     }
 
     /* Hero Banner Section */
@@ -175,6 +165,63 @@
       opacity: 0.9;
     }
 
+    /* Partners Section Styling */
+    .partners-section {
+      padding: 80px 40px;
+      background-color: #ffffff;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .partners-section h2 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 50px;
+    }
+
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .partner-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .partner-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      background-color: #f0f0f0;
+      margin-bottom: 15px;
+      border-radius: 2px;
+    }
+
+    .partner-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 4px;
+    }
+
+    .partner-card .role {
+      font-size: 13px;
+      color: #00338d;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .partner-card .bio {
+      font-size: 13px;
+      color: #555555;
+      line-height: 1.5;
+    }
+
     /* Mobile Responsiveness */
     @media (max-width: 900px) {
       header {
@@ -186,10 +233,6 @@
       .nav-container {
         flex-wrap: wrap;
         justify-content: center;
-      }
-
-      .sub-header {
-        display: none;
       }
 
       .hero-container {
@@ -212,6 +255,16 @@
 
       .feature-title, .feature-description {
         width: 100%;
+      }
+
+      .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .partners-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -238,14 +291,6 @@
     </div>
   </header>
 
-  <div class="sub-header">
-    <a href="#insights">Insights</a>
-    <a href="#industries">Industries</a>
-    <a href="#services">Services</a>
-    <a href="#how-we-work">How We Work</a>
-    <a href="#global-services">VSAK Global Services</a>
-  </div>
-
   <section class="hero-section" id="home">
     <div class="hero-container">
       <img 
@@ -267,6 +312,41 @@
       Being agile, more connected, and standing at the forefront of technological and strategic transformation.
     </div>
   </div>
+
+  <section class="partners-section" id="partners">
+    <h2>Our Partners</h2>
+    <div class="partners-grid">
+      
+      <div class="partner-card">
+        <img src="https://via.placeholder.com/300x350" alt="Krishnachandran M Nair">
+        <h3>Krishnachandran M Nair</h3>
+        <p class="role">Managing Partner</p>
+        <p class="bio">Krishnachandran M Nair is the Managing Partner, with extensive experience in audit.</p>
+      </div>
+
+      <div class="partner-card">
+        <img src="https://via.placeholder.com/300x350" alt="Vimalan T">
+        <h3>Vimalan T</h3>
+        <p class="role">Senior Partner</p>
+        <p class="bio">Vimalan T is a Fellow Member of the Institute of Chartered Accountants of India.</p>
+      </div>
+
+      <div class="partner-card">
+        <img src="https://via.placeholder.com/300x350" alt="Sajath Ali">
+        <h3>Sajath Ali</h3>
+        <p class="role">Senior Partner</p>
+        <p class="bio">Sajath Ali brings strategic leadership in international tax and compliance advisory.</p>
+      </div>
+
+      <div class="partner-card">
+        <img src="https://via.placeholder.com/300x350" alt="R M Amal">
+        <h3>R M Amal</h3>
+        <p class="role">Partner</p>
+        <p class="bio">R M Amal is a key partner responsible for consulting and transaction advisory services.</p>
+      </div>
+
+    </div>
+  </section>
 
 </body>
 </html>
