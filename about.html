@@ -19,6 +19,7 @@
     body {
       background-color: #ffffff;
       color: #333333;
+      overflow-x: hidden;
       animation: fadeInUp 0.8s ease-out forwards;
     }
 
@@ -44,8 +45,7 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      gap: 20px;
-      padding: 8px 40px;
+      padding: 8px 20px;
       font-size: 13px;
       color: #00338d;
       background-color: #fff;
@@ -60,7 +60,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 40px;
+      padding: 12px 20px;
       background-color: #ffffff;
       border-bottom: 1px solid #e0e0e0;
       position: sticky;
@@ -69,7 +69,7 @@
     }
 
     .brand-logo-img {
-      height: 125px;
+      height: 60px;
       width: auto;
       display: block;
       object-fit: contain;
@@ -79,17 +79,17 @@
     .nav-container {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 20px;
     }
 
     nav {
       display: flex;
-      gap: 25px;
+      gap: 20px;
       align-items: center;
     }
 
     nav a {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 600;
       color: #4a4a4a;
       transition: color 0.3s ease;
@@ -99,87 +99,68 @@
       color: #00338d;
     }
 
-    /* Services Dropdown Container */
+    /* Services Dropdown & Ribbon */
     .services-dropdown {
+      position: relative;
       display: flex;
       align-items: center;
     }
 
     .services-dropdown > a {
       cursor: pointer;
-      display: inline-block;
-      line-height: 1;
     }
 
-    /* Anchored Ribbon to Header */
     .services-ribbon {
       position: absolute;
-      top: 100%; /* Placed directly below sticky header */
-      left: 0;
-      right: 0;
-      width: 100vw;
-      margin-left: calc(-50vw + 50%); /* Centers wide ribbon across full viewport */
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: #ffffff;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      border-bottom: 1px solid #e0e0e0;
-      border-top: 1px solid #f0f0f0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
       overflow: hidden;
       max-height: 0;
       opacity: 0;
-      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
       z-index: 999;
+      min-width: 180px;
     }
 
     .services-ribbon-content {
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 40px;
-      gap: 20px;
+      flex-direction: column;
+      padding: 10px 0;
     }
 
-    /* Ribbon Links */
     .services-ribbon-content a {
-      flex: 1;
-      text-align: center;
       color: #00338d !important;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 600;
-      padding: 8px 12px;
-      background-color: transparent;
-      border: none;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .services-ribbon-content a::before {
-      content: "• ";
-      margin-right: 6px;
-      color: #00338d;
+      padding: 8px 16px;
+      text-align: left;
+      white-space: nowrap;
     }
 
     .services-ribbon-content a:hover {
-      color: #002266 !important;
-      transform: translateY(-1px);
+      background-color: #f5f7fa;
     }
 
-    /* Active / Hover Toggle State */
     .services-dropdown:hover .services-ribbon,
     .services-dropdown.active .services-ribbon {
-      max-height: 100px;
+      max-height: 250px;
       opacity: 1;
     }
 
     .contact-btn {
       background-color: #00338d;
       color: #ffffff !important;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 4px;
       font-weight: 600;
-      font-size: 20px;
+      font-size: 15px;
       transition: background-color 0.3s ease;
+      white-space: nowrap;
     }
 
     .contact-btn:hover {
@@ -272,31 +253,30 @@
       margin-bottom: 18px;
     }
 
-    /* Mobile Layout */
-    @media (max-width: 900px) {
+    /* Mobile Breakpoints & Layout Adjustments */
+    @media (max-width: 1024px) {
+      .brand-logo-img {
+        height: 70px;
+      }
+    }
+
+    @media (max-width: 768px) {
       header {
-        padding: 15px 20px;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+      }
+
+      .nav-container {
+        width: 100%;
         flex-direction: column;
         gap: 15px;
       }
-      
-      .nav-container {
+
+      nav {
         flex-wrap: wrap;
         justify-content: center;
-      }
-
-      .services-ribbon {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
-        margin-left: 0;
-      }
-
-      .services-ribbon-content {
-        flex-direction: column;
-        gap: 8px;
-        padding: 15px;
+        gap: 15px;
       }
 
       .about-hero {
@@ -312,17 +292,31 @@
       }
 
       .about-hero-image {
-        height: 150px;
+        height: 200px;
+      }
+
+      .breadcrumb-bar {
+        padding: 15px 20px;
+      }
+
+      .about-content-section {
+        padding: 30px 20px 50px 20px;
       }
 
       .about-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 20px;
       }
 
-      .breadcrumb-bar, .about-content-section {
-        padding-left: 20px;
-        padding-right: 20px;
+      .about-main-heading {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .contact-btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
@@ -343,7 +337,7 @@
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About us</a>
         <div class="services-dropdown" id="servicesDropdown">
-          <a id="servicesBtn">Services</a>
+          <a id="servicesBtn">Services ▾</a>
           <div class="services-ribbon">
             <div class="services-ribbon-content">
               <a href="index.html#accounting">Accounting</a>
