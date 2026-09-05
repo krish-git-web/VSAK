@@ -162,6 +162,8 @@
       font-size: 15px;
       transition: background-color 0.3s ease;
       white-space: nowrap;
+      cursor: pointer;
+      border: none;
     }
 
     .contact-btn:hover {
@@ -171,24 +173,43 @@
     /* Hero Banner Section */
     .hero-section {
       background-color: #0052cc;
-      padding: 40px 20px;
-    }
-
-    .hero-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      padding: 60px 20px 100px;
+      min-height: calc(100vh - 100px);
+      display: flex;
       align-items: center;
     }
 
-    .hero-image-primary, .hero-image-secondary {
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
       width: 100%;
-      height: 280px;
+      height: 520px;
+    }
+
+    .hero-image-primary {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 65%;
+      height: 420px;
       object-fit: cover;
-      border-radius: 4px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .hero-image-secondary {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 55%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.4);
+      border: 6px solid #0052cc;
+      z-index: 2;
     }
 
     /* Feature Banner */
@@ -293,6 +314,105 @@
       line-height: 1.5;
     }
 
+    /* Contact Section / Modal Styling */
+    .contact-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .contact-modal.active {
+      display: flex;
+    }
+
+    .contact-card {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #666666;
+      cursor: pointer;
+    }
+
+    .contact-card h2 {
+      font-size: 24px;
+      color: #00338d;
+      margin-bottom: 10px;
+    }
+
+    .contact-card p {
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 20px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input, .form-group textarea {
+      padding: 10px;
+      border: 1px solid #cccccc;
+      border-radius: 4px;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .submit-btn {
+      background-color: #00338d;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #002266;
+    }
+
     /* Responsive Breakpoints */
     @media (max-width: 1024px) {
       .partners-grid {
@@ -323,11 +443,17 @@
       }
 
       .hero-container {
-        grid-template-columns: 1fr;
+        height: 420px;
       }
 
-      .hero-image-primary, .hero-image-secondary {
-        height: 220px;
+      .hero-image-primary {
+        width: 75%;
+        height: 300px;
+      }
+
+      .hero-image-secondary {
+        width: 65%;
+        height: 260px;
       }
 
       .feature-strip {
@@ -356,7 +482,7 @@
 <body>
 
   <div class="top-bar">
-    <a href="#rfp">Submit RFP</a>
+    <a href="#rfp" id="rfpLink">Submit RFP</a>
   </div>
 
   <header>
@@ -366,7 +492,6 @@
 
     <div class="nav-container">
       <nav>
-        <a href="index.html" class="active">Home</a>
         <a href="./about.html">About us</a>
         <div class="services-dropdown" id="servicesDropdown">
           <a id="servicesBtn">Services ▾</a>
@@ -382,7 +507,7 @@
         <a href="#partners">Partners</a>
         <a href="#gallery">Gallery</a>
       </nav>
-      <a href="#contact" class="contact-btn">Contact Us</a>
+      <button class="contact-btn" id="openContactBtn">Contact Us</button>
     </div>
   </header>
 
@@ -417,7 +542,7 @@
         <h3>Krishnachandran M Nair</h3>
         <p class="role">Founder & Managing Partner</p>
         <div class="partner-socials">
-          <a href="https://www.linkedin.com/in/krishnachandranmnair/#:~:text=www.linkedin.com/in/krishnachandranmnair" target="_blank" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/in/krishnachandranmnair/" target="_blank" aria-label="LinkedIn">
             <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
           </a>
           <a href="mailto:partner1@vsak.com" aria-label="Email">
@@ -475,7 +600,55 @@
     </div>
   </section>
 
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){onFormSubmitted();}"></iframe>
+
+  <div class="contact-modal" id="contactModal">
+    <div class="contact-card">
+      <span class="close-modal" id="closeContactBtn">&times;</span>
+      <h2>Get in Touch</h2>
+      <p>Fill out the form below and our leadership team will respond shortly.</p>
+      
+      <form 
+        id="vsakContactForm" 
+        class="contact-form" 
+        action="https://docs.google.com/forms/d/11dDuWyw5kVu_G4YVASqdcOmtgaysaJ7uaTcN6byV6VU/formResponse" 
+        method="POST" 
+        target="hidden_iframe" 
+        onsubmit="submitted=true;">
+        
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="entry.1745574096" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="entry.732640669" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject / Inquiry</label>
+          <input type="text" id="subject" name="entry.157245082" placeholder="Audit & Advisory Enquiry" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="entry.1079736726" placeholder="How can we assist your business?" required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+
   <script>
+    // Form submission flag tracking
+    let submitted = false;
+
+    function onFormSubmitted() {
+      alert('Thank you for reaching out to VSAK! We have received your inquiry and will contact you soon.');
+      document.getElementById('vsakContactForm').reset();
+      document.getElementById('contactModal').classList.remove('active');
+      submitted = false;
+    }
+
+    // Services Dropdown Toggle
     const servicesDropdown = document.getElementById('servicesDropdown');
     const servicesBtn = document.getElementById('servicesBtn');
 
@@ -487,6 +660,31 @@
     document.addEventListener('click', (e) => {
       if (!servicesDropdown.contains(e.target)) {
         servicesDropdown.classList.remove('active');
+      }
+    });
+
+    // Contact Modal Functionality
+    const contactModal = document.getElementById('contactModal');
+    const openContactBtn = document.getElementById('openContactBtn');
+    const closeContactBtn = document.getElementById('closeContactBtn');
+    const rfpLink = document.getElementById('rfpLink');
+
+    openContactBtn.addEventListener('click', () => {
+      contactModal.classList.add('active');
+    });
+
+    rfpLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      contactModal.classList.add('active');
+    });
+
+    closeContactBtn.addEventListener('click', () => {
+      contactModal.classList.remove('active');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        contactModal.classList.remove('active');
       }
     });
   </script>
